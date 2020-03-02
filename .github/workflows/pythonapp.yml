@@ -21,9 +21,9 @@ jobs:
       run: |
         conda --version
         echo $PATH
-        conda create -y -p ~/bag
-        conda activate ~/bag
-        conda install --file requirements.txt
+        eval "$(${CONDA}/bin/conda shell.bash hook)" conda create -y -p ~/bag
+        eval "$(${CONDA}/bin/conda shell.bash hook)" conda activate ~/bag
+        eval "$(${CONDA}/bin/conda shell.bash hook)" conda install --file requirements.txt
     - name: Lint with flake8
       run: |
         conda install flake8
