@@ -9,6 +9,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Include $CONDA in $PATH
+      run: |
+        echo ::add-path::$CONDA/condabin  
     - name: Set up Python 3.8
       uses: actions/setup-python@v1
       with:
