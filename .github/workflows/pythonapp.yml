@@ -9,8 +9,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Include $CONDA in $PATH
+    - name: Update Conda and include $CONDA in $PATH
       run: |
+        conda update -n base -c defaults conda
         echo ::add-path::$CONDA/condabin  
     - name: Set up Python 3.8
       uses: actions/setup-python@v1
@@ -18,11 +19,6 @@ jobs:
         python-version: 3.8
     - name: Install dependencies
       run: |
-        conda update -n base -c defaults conda
-        conda info
-        which conda
-        ls -lart ~
-        ls -lart /etc
         conda create -y -p ~/bag
         conda activate ~/bag
         conda install --file requirements.txt
