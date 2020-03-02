@@ -17,6 +17,9 @@ jobs:
       run: |
         conda update -n base -c defaults conda
         conda info
+        which conda
+        ls -lart ~
+        ls -lart /etc
         conda create -y -p ~/bag
         conda activate ~/bag
         conda install --file requirements.txt
