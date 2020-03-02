@@ -12,15 +12,8 @@ jobs:
     - name: Update Conda and include $CONDA in $PATH
       run: |
         conda update -n base -c defaults conda
-        echo ::add-path::$CONDA/condabin  
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.8
     - name: Install dependencies
       run: |
-        conda --version
-        echo $PATH
         eval "$(${CONDA}/bin/conda shell.bash hook)" && conda create -y -p ~/bag
         eval "$(${CONDA}/bin/conda shell.bash hook)" && conda activate ~/bag
         eval "$(${CONDA}/bin/conda shell.bash hook)" && conda install --file requirements.txt
@@ -28,10 +21,10 @@ jobs:
       run: |
         eval "$(${CONDA}/bin/conda shell.bash hook)" && conda install flake8
         # stop the build if there are Python syntax errors or undefined names
-        eval "$(${CONDA}/bin/conda shell.bash hook)" && flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        eval "$(${CONDA}/bin/conda shell.bash hook)" && flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
         eval "$(${CONDA}/bin/conda shell.bash hook)" && conda install pytest
-        eval "$(${CONDA}/bin/conda shell.bash hook)" && pytest
+        pytest
